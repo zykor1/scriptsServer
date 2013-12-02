@@ -1,10 +1,10 @@
 #bash -e install_nginx.sh | tee install_nginx.log
 
 # Set environment variables
-APPNAME=nginx_django_push       # Name of the uWSGI Custom Application
-APPPORT=8100              # Assigned port for the uWSGI Custom Application
+APPNAME=nginx_ct2       # Name of the uWSGI Custom Application
+APPPORT=8000              # Assigned port for the uWSGI Custom Application
 PYTHON=python2.7           # Django python version
-DJANGOPROJECT=django_push    # Django project name
+DJANGOPROJECT=ct2    # Django project name
 
 mkdir -p /home/nginx/$APPNAME/{bin,nginx,src,tmp}
 
@@ -73,12 +73,12 @@ EOF
 cat << EOF > /home/nginx/$APPNAME/wsgi.py
 import sys, os
 
-sys.path = ['/home/pushService/${DJANGOPROJECT}/${DJANGOPROJECT}',
-            '/home/pushService/${DJANGOPROJECT}',
-            '/home/pushService/lib/${PYTHON}',
+sys.path = ['/home/django/${DJANGOPROJECT}/configuracion',
+            '/home/django/${DJANGOPROJECT}',
+            '/home/django/lib/${PYTHON}',
            ] + sys.path
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'django_push.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'configuracion.settings'
 
 import django.core.handlers.wsgi
 
